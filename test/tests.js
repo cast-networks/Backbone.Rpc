@@ -476,7 +476,7 @@ test("can delete simple data (namespaced)", function () {
 
   // check if namespace, method call and parameters are correct
   equal(JSON.parse(server.requests[0].requestBody).method, 'abcde/deleteText', 'Method called in the correct namespace');
-  equal(JSON.parse(server.requests[0].requestBody).params[0], 1, 'Parameters set correctly');
+  equal(JSON.parse(server.requests[0].requestBody).params['id'], 1, 'Parameters set correctly');
   equal(JSON.parse(server.requests[0].requestBody).id, modelInstance.rpc.responseID, 'Response id set correctly');
 
   //fire response
@@ -676,7 +676,7 @@ test("collection can fetch data with a simple argument", function () {
   collectionInstance.fetch({success: successCb});
 
   // check arguments
-  equal(JSON.parse(server.requests[0].requestBody).params[0], 3, 'Parameters set correctly');
+  equal(JSON.parse(server.requests[0].requestBody).params['beginningWith'], 3, 'Parameters set correctly');
 
   // set response
   server.respondWith(this.method, this.url, [200, this.contentType,'{ "id": ' + collectionInstance.rpc.responseID + ', "jsonrpc": "2.0",  "result": [{"n": 3}, {"n": 4}, {"n": 5}] }']);
@@ -714,8 +714,8 @@ test("collection can fetch data with simple arguments", function () {
   collectionInstance.fetch({success: successCb});
 
   // check arguments
-  equal(JSON.parse(server.requests[0].requestBody).params[0], 3, 'Parameters set correctly');
-  equal(JSON.parse(server.requests[0].requestBody).params[1], 5, 'Parameter 2 set correctly');
+  equal(JSON.parse(server.requests[0].requestBody).params['beginningWith'], 3, 'Parameters set correctly');
+  equal(JSON.parse(server.requests[0].requestBody).params['endsWith'], 5, 'Parameter 2 set correctly');
 
   // set response
   server.respondWith(this.method, this.url, [200, this.contentType,'{ "id": ' + collectionInstance.rpc.responseID + ', "jsonrpc": "2.0",  "result": [{"n": 3}, {"n": 4}, {"n": 5}] }']);
@@ -753,7 +753,7 @@ test("collection can fetch simple data with a functional argument", function () 
   collectionInstance.fetch({success: successCb});
 
   // check arguments
-  equal(JSON.parse(server.requests[0].requestBody).params[0], 3, 'Parameters set correctly');
+  equal(JSON.parse(server.requests[0].requestBody).params['beginningWith'], 3, 'Parameters set correctly');
 
   // set response
   server.respondWith(this.method, this.url, [200, this.contentType,'{ "id": ' + collectionInstance.rpc.responseID + ', "jsonrpc": "2.0",  "result": [{"n": 3}, {"n": 4}, {"n": 5}] }']);
